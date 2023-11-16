@@ -1,0 +1,60 @@
+<form #form="ngForm" (submit)="onSubmit(form)" [class.submitted] ="vehicleService.formSubmitted" novalidate autocomplete="off">
+  <input type="hidden" name="id" [value]="vehicleService.formData.id">
+  <div class="mb-3">
+    <label>Vehicle Make</label>
+    <input class="form-control for-control-lg" placeholder="Enter the make of vehicle" #make="ngModel" name="make" [(ngModel)]="vehicleService.formData.make" maxlength="50" required (blur)="checkField(make)" (input)="checkField(make)">
+    <div *ngIf="fieldInvalid(make)" class="text-danger">
+      <div *ngIf="make.errors?.['required']">Vehicle Make is required.</div>
+      <div *ngIf="make.errors?.['maxlength']">Vehicle Make should have at most 50 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Vehicle Model</label>
+    <input class="form-control for-control-lg" placeholder="Enter the vehicle model" #model="ngModel" name="model" [(ngModel)]="vehicleService.formData.model" maxlength="50" required (blur)="checkField(model)" (input)="checkField(model)">
+    <div *ngIf="fieldInvalid(model)" class="text-danger">
+      <div *ngIf="model.errors?.['required']">Vehicle Model is required.</div>
+      <div *ngIf="model.errors?.['maxlength']">Vehicle Model should have at most 50 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Manufacturing Year</label>
+    <input class="form-control for-control-lg" placeholder="Enter the manufacturing year" #manufacturingYear="ngModel" name="manufacturingYear" [(ngModel)]="vehicleService.formData.manufacturingYear" required (blur)="checkField(manufacturingYear)" (input)="checkField(manufacturingYear)">
+    <div *ngIf="fieldInvalid(manufacturingYear)" class="text-danger">
+      <div *ngIf="manufacturingYear.errors?.['required']">Manufacturing Year is required.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>License Plate</label>
+    <input class="form-control for-control-lg" placeholder="Enter the license plate" #licensePlate="ngModel" name="licensePlate" [(ngModel)]="vehicleService.formData.licensePlate" maxlength="10" required (blur)="checkField(licensePlate)" (input)="checkField(licensePlate)">
+    <div *ngIf="fieldInvalid(licensePlate)" class="text-danger">
+      <div *ngIf="licensePlate.errors?.['required']">License Plate is required.</div>
+      <div *ngIf="manufacturingYear.value !== null && (manufacturingYear.value < 1900 || manufacturingYear.value > 2100)">O ano de fabricação deve estar entre 1900 e 2100.</div>
+  </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Color</label>
+    <input class="form-control for-control-lg" placeholder="Enter the color of vehicle" #color="ngModel" name="color" [(ngModel)]="vehicleService.formData.color" maxlength="20" required (blur)="checkField(color)" (input)="checkField(color)">
+    <div *ngIf="fieldInvalid(color)" class="text-danger">
+      <div *ngIf="color.errors?.['required']">Color is required.</div>
+      <div *ngIf="color.errors?.['maxlength']">Color should have at most 20 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Owner</label>
+    <select class="form-control for-control-lg" #owner="ngModel" name="owner" [(ngModel)]="vehicleService.formData.ownerId" required (blur)="checkField(owner)" (input)="checkField(owner)">
+      <option *ngFor="let owner of ownerService.list" [value]="owner.id">{{ owner.name }}</option>
+    </select>
+    <div *ngIf="fieldInvalid(owner)" class="text-danger">
+      <div *ngIf="owner.errors?.['required']">Owner is required.</div>
+    </div>
+  </div>
+
+  <div class="d-grid">
+    <button class="btn btn-lg btn-success" type="submit">Submit</button>
+  </div>
+</form>

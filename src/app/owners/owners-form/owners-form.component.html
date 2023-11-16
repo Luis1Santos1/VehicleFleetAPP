@@ -1,0 +1,46 @@
+<form #form="ngForm" (submit)="onSubmit(form)" [class.submitted] ="ownerService.formSubmitted" novalidate autocomplete="off">
+  <input type="hidden" name="ownerId" [value]="ownerService.formData.id">
+  <div class="mb-3">
+    <label>Name</label>
+<input class="form-control for-control-lg" placeholder="Enter the name of owner" #name="ngModel" name="name" [(ngModel)]="ownerService.formData.name" minlength="2" maxlength="100" (blur)="checkField(name)" (input)="checkField(name)" required>
+<div *ngIf="nameInvalid(name)" class="text-danger">
+  <div *ngIf="name.errors?.['required']">Name is required.</div>
+  <div *ngIf="name.errors?.['minlength']">Name should have at least 2 characters.</div>
+  <div *ngIf="name.errors?.['maxlength']">Name should have at most 100 characters.</div>
+</div>
+  </div>
+
+  <div class="mb-3">
+    <label>CPF</label>
+    <input class="form-control for-control-lg" placeholder="Enter the CPF of owner" #cpf="ngModel" name="cpf" [(ngModel)]="ownerService.formData.cpf" minlength="11" maxlength="11" (blur)="checkField(cpf)" (input)="checkField(cpf)" required>
+    <div *ngIf="cpfInvalid(cpf)" class="text-danger">
+      <div *ngIf="cpf.errors?.['required']">CPF is required.</div>
+      <div *ngIf="cpf.errors?.['minlength']">CPF should have at least 11 characters.</div>
+      <div *ngIf="cpf.errors?.['maxlength']">CPF should have at most 11 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Address</label>
+    <input class="form-control for-control-lg" placeholder="Enter the Address of owner" #address="ngModel" name="address" [(ngModel)]="ownerService.formData.address" maxlength="100" (blur)="checkField(address)" (input)="checkField(address)" required>
+    <div *ngIf="addressInvalid(address)" class="text-danger">
+      <div *ngIf="address.errors?.['required']">Address is required.</div>
+      <div *ngIf="address.errors?.['maxlength']">Address should have at most 100 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Phone</label>
+    <input class="form-control for-control-lg" placeholder="Enter the phone of owner" #phone="ngModel" name="phone" [(ngModel)]="ownerService.formData.phone" (blur)="checkField(phone)" (input)="checkField(phone)" required minlength="11" maxlength="11" pattern="[0-9]*">
+    <div *ngIf="phoneInvalid(phone)" class="text-danger">
+      <div *ngIf="phone.errors?.['required']">Phone is required.</div>
+      <div *ngIf="phone.errors?.['minlength']">Phone should have at least 11 characters.</div>
+      <div *ngIf="phone.errors?.['maxlength']">Phone should have at most 11 characters.</div>
+      <div *ngIf="phone.errors?.['pattern']">Phone should contain only numbers.</div>
+    </div>
+  </div>
+
+  <div class="d-grid">
+    <button class="btn btn-lg btn-success" type="submit">Submit</button>
+  </div>
+</form>

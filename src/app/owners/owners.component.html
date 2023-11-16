@@ -1,3 +1,33 @@
-<p>
-  owners works!
-</p>
+<div class=" text-center py-4">
+  <h2 class="fw-bold" style="font-size: 2em;">Owner Register</h2>
+</div>
+<div class="row mt-5">
+  <div class="col-6">
+    <app-owners-form></app-owners-form>
+  </div>
+  <div class="col-6">
+    <ul *ngIf="ownerService.list.length > 0" class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-start mb-2 border px-4 py-3 rounded-3"
+        *ngFor="let od of ownerService.list">
+
+        <div class="flex-grow-1 mouse-hover"
+        (click)="populateForm(od)">
+
+          <div class="fw-bold">{{od.name}}</div>
+          <div>{{od.phone}}</div>
+        </div>
+        <span class="text-secondary">
+          <i class="fa-solid fa-trash fa-lg mouse-hover"
+          (click)="onDelete(od.id)"></i>
+        </span>
+      </li>
+    </ul>
+    <div *ngIf="ownerService.list.length === 0" class="text-center mt-3" style="height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <h3 class="alert-info">
+        <i class="fa-solid fa-exclamation-triangle" style="font-size: 2.5em;"></i>
+        <br>
+        <span style="margin-left: 10px;" style="font-size: 1.2em;">No owners registered.</span>
+      </h3>
+    </div>
+  </div>
+</div>
