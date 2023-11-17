@@ -8,15 +8,19 @@ import { VehicleInsuranceComponent } from './vehicleInsurance/vehicleInsurance.c
 import { VehicleInsuranceFormComponent } from './vehicleInsurance/vehicleInsuranceForm/vehicleInsuranceForm.component';
 import { VehiclesFormComponent } from './vehicles/vehicles-form/vehicles-form.component';
 import { OwnersFormComponent } from './owners/owners-form/owners-form.component';
+import { MaintenanceHistoryFormComponent } from './maintenanceHistory/maintenanceHistory-form/maintenanceHistory-form.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'vehicles',component: VehiclesComponent},
   {path: 'vehicles',component: VehiclesFormComponent},
   {path: 'owners', component: OwnersComponent},
   {path: 'owners', component: OwnersFormComponent},
   {path: 'maintenanceHistory', component: MaintenanceHistoryComponent},
-  {path: 'vehicleInsurance', component: VehicleInsuranceComponent}
+  {path: 'maintenanceHistory', component: MaintenanceHistoryFormComponent},
+  {path: 'vehicleInsurance', component: VehicleInsuranceComponent},
+  {path: 'vehicleInsurance', component: VehicleInsuranceFormComponent}
 
 ];
 

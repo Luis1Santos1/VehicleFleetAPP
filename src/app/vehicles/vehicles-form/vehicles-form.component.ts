@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { Vehicle } from 'src/app/shared/models/vehicle.model';
 import { OwnerService } from 'src/app/shared/services/owner.service';
@@ -55,14 +54,4 @@ export class VehiclesFormComponent {
       error: err => { console.log(err) }
     })
   }
-}
-
-function manufacturingYearValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const year = control.value;
-    if (year && (year < 1900 || year > 2100)) {
-      return { manufacturingYearInvalid: true };
-    }
-    return null;
-  };
 }

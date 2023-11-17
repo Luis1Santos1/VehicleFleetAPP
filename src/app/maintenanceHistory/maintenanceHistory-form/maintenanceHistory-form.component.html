@@ -7,7 +7,7 @@
       <option *ngFor="let vehicle of vehicleService.list" [value]="vehicle.id">{{ vehicle.model + " / " + vehicle.make }}</option>
     </select>
     <div *ngIf="fieldInvalid(vehicle)" class="text-danger">
-      <div *ngIf="vehicle.errors?.['required']">Owner is required.</div>
+      <div *ngIf="vehicle.errors?.['required']">Vehicle is required.</div>
     </div>
   </div>
 
@@ -16,8 +16,8 @@
     <input class="form-control for-control-lg" placeholder="Enter the maintenance Date of vehicle" #maintenanceDate="ngModel" name="maintenanceDate" [(ngModel)]="maintenanceHistoryService.formData.maintenanceDate" minlength="10" maxlength="10" required (blur)="checkField(maintenanceDate)" (input)="checkField(maintenanceDate)" >
     <div *ngIf="fieldInvalid(maintenanceDate)" class="text-danger">
       <div *ngIf="maintenanceDate.errors?.['required']">Maintenance Date is required.</div>
-      <div *ngIf="maintenanceDate.errors?.['maxlength']">Maintenance Date should have at most 10 characters (dd/mm/aaaa).</div>
-      <div *ngIf="maintenanceDate.errors?.['maxlength']">Maintenance Date should have at least 10 characters (dd/mm/aaaa).</div>
+      <div *ngIf="maintenanceDate.errors?.['maxlength']">Maintenance Date should have at most 10 characters (aaaa-mm-dd).</div>
+      <div *ngIf="maintenanceDate.errors?.['maxlength']">Maintenance Date should have at least 10 characters (aaaa-mm-dd).</div>
     </div>
   </div>
 

@@ -1,11 +1,46 @@
-<div class=" text-center py-4">
-  <h2 class="fw-bold">Owner Register</h2>
+<div class="text-center py-4">
+  <h2 class="fw-bold">Vehicle Insurance Register</h2>
 </div>
 <div class="row mt-5">
   <div class="col-6">
-    <router-outlet></router-outlet>
+    <app-vehicleInsuranceForm></app-vehicleInsuranceForm>
   </div>
   <div class="col-6">
-    list owners details
+    <div *ngIf="vehicleInsuranceService.loading" class="text-center mt-3" style="height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <div class="spinner-border" role="status" style="width: 4rem; height: 4rem;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2" style="font-size: 2em; color: black;">Loading maintenance history...</p>
+    </div>
+    <ul *ngIf="!vehicleInsuranceService.loading && vehicleInsuranceService.list.length > 0" class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-start mb-2 border px-4 py-3 rounded-3" *ngFor="let vid of vehicleInsuranceService.list">
+        <div class="flex-grow-1 mouse-hover" (click)="populateForm(vid)">
+          <div class="fw-bold">{{ getVehicleModel(vid.vehicleId) }}</div>
+          <div>
+            <span class="text-muted">Insurance Company:</span> {{ vid.insuranceCompany }}
+          </div>
+          <div>
+            <span class="text-muted">Policy number:</span> {{ vid.policyNumber }}
+          </div>
+          <div>
+            <span class="text-muted">Start Date:</span> {{ vid.startDate | date: 'dd/MM/yyyy' }}
+          </div>
+          <div>
+            <span class="text-muted">End Date:</span> {{ vid.endDate | date: 'dd/MM/yyyy' }}
+          </div>
+        </div>
+        <span class="text-secondary">
+          <i class="fa-solid fa-trash fa-lg mouse-hover" (click)="onDelete(vid.id)"></i>
+        </span>
+      </li>
+    </ul>
+
+    <div *ngIf="!vehicleInsuranceService.loading && vehicleInsuranceService.list.length === 0" class="text-center mt-3" style="height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <h3 class="alert-info">
+        <i class="fa-solid fa-exclamation-triangle" style="font-size: 2.5em;"></i>
+        <br>
+        <span style="margin-left: 10px;" style="font-size: 1.2em;">No vehicles registered.</span>
+      </h3>
+    </div>
   </div>
 </div>

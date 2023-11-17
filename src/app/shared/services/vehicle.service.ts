@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { Vehicle } from '../models/vehicle.model';
 import { NgForm } from '@angular/forms';
+import { Owner } from '../models/owner.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,13 @@ export class VehicleService {
   formSubmitted:boolean = false;
   loading = false;
   constructor(private http:HttpClient) { }
+
+
+  getVehiclesByOwnerId(ownerId: number) {
+    const url = `${this.url}/${ownerId}/vehicles`;
+
+    return this.http.get<Vehicle[]>(url);
+  }
 
   refreshList(){
     this.loading = true;

@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { VehiclesComponent } from './vehicles/vehicles.component';
-import { OwnersComponent } from './owners/owners.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { VehicleService } from './shared/services/vehicle.service';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MaintenanceHistoryComponent } from './maintenanceHistory/maintenanceHistory.component';
-import { VehicleInsuranceComponent } from './vehicleInsurance/vehicleInsurance.component';
+import { VehiclesComponent } from './vehicles/vehicles.component';
 import { VehiclesFormComponent } from './vehicles/vehicles-form/vehicles-form.component';
-import { OwnersFormComponent } from './owners/owners-form/owners-form.component';
 import { OwnerService } from './shared/services/owner.service';
+import { OwnersComponent } from './owners/owners.component';
+import { OwnersFormComponent } from './owners/owners-form/owners-form.component';
 import { MaintenanceHistoryService } from './shared/services/maintenance-history.service';
+import { MaintenanceHistoryComponent } from './maintenanceHistory/maintenanceHistory.component';
 import { MaintenanceHistoryFormComponent } from './maintenanceHistory/maintenanceHistory-form/maintenanceHistory-form.component';
+import { VehicleInsuranceService } from './shared/services/vehicle-insurance.service';
+import { VehicleInsuranceComponent } from './vehicleInsurance/vehicleInsurance.component';
+import { VehicleInsuranceFormComponent } from './vehicleInsurance/vehicleInsuranceForm/vehicleInsuranceForm.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MaintenanceHistoryFormComponent } from './maintenanceHistory/maintenanc
     VehiclesFormComponent,
     MaintenanceHistoryComponent,
     MaintenanceHistoryFormComponent,
-    VehicleInsuranceComponent
+    VehicleInsuranceComponent,
+    VehicleInsuranceFormComponent
    ],
   imports: [
     FormsModule,
@@ -39,7 +42,8 @@ import { MaintenanceHistoryFormComponent } from './maintenanceHistory/maintenanc
   providers: [
     VehicleService,
     OwnerService,
-    MaintenanceHistoryService
+    MaintenanceHistoryService,
+    VehicleInsuranceService
   ],
   bootstrap: [AppComponent]
 })

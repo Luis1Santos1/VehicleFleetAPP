@@ -1,3 +1,52 @@
-<p>
-  vehicleInsuranceForm works!
-</p>
+<form #form="ngForm" (submit)="onSubmit(form)" [class.submitted] ="vehicleInsuranceService.formSubmitted" novalidate autocomplete="off">
+  <input type="hidden" name="id" [value]="vehicleInsuranceService.formData.id">
+
+  <div class="mb-3">
+    <label>Vehicle</label>
+    <select class="form-control for-control-lg" #vehicle="ngModel" name="owner" [(ngModel)]="vehicleInsuranceService.formData.vehicleId" required (blur)="checkField(vehicle)" (input)="checkField(vehicle)">
+      <option *ngFor="let vehicle of vehicleService.list" [value]="vehicle.id">{{ vehicle.model + " / " + vehicle.make }}</option>
+    </select>
+    <div *ngIf="fieldInvalid(vehicle)" class="text-danger">
+      <div *ngIf="vehicle.errors?.['required']">Vehicle is required.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Insurance Company</label>
+    <input class="form-control for-control-lg" placeholder="Enter insurance company of vehicle" #insuranceCompany="ngModel" name="insuranceCompany" [(ngModel)]="vehicleInsuranceService.formData.insuranceCompany" maxlength="50" required (blur)="checkField(insuranceCompany)" (input)="checkField(insuranceCompany)">
+    <div *ngIf="fieldInvalid(insuranceCompany)" class="text-danger">
+      <div *ngIf="insuranceCompany.errors?.['required']">Insurance company is required.</div>
+      <div *ngIf="insuranceCompany.errors?.['maxlength']">Insurance company should have at most 50 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Policy Number</label>
+    <input class="form-control for-control-lg" placeholder="Enter the policy number" #policyNumber="ngModel" name="policyNumber" [(ngModel)]="vehicleInsuranceService.formData.policyNumber" maxlength="50" required (blur)="checkField(policyNumber)" (input)="checkField(policyNumber)">
+    <div *ngIf="fieldInvalid(policyNumber)" class="text-danger">
+      <div *ngIf="policyNumber.errors?.['required']">Vehicle Model is required.</div>
+      <div *ngIf="policyNumber.errors?.['maxlength']">Vehicle Model should have at most 50 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <p>StartDate = {{ startDateValue | date: 'yyyy-MM-dd' }}</p>
+    <input class="form-control for-control-lg" placeholder="Enter the start date" #startDate="ngModel" name="startDate" [(ngModel)]="vehicleInsuranceService.formData.startDate" required (blur)="checkField(startDate)" (input)="checkField(startDate)">
+    <div *ngIf="fieldInvalid(startDate)" class="text-danger">
+      <div *ngIf="startDate.errors?.['required']">Start Date is required (aaaa-mm-dd).</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <p>StartDate = {{ endDateValue | date: 'yyyy-MM-dd' }}</p>
+    <input class="form-control for-control-lg" placeholder="Enter the end date" #endDate="ngModel" name="endDate" [(ngModel)]="vehicleInsuranceService.formData.endDate" required (blur)="checkField(endDate)" (input)="checkField(endDate)">
+    <div *ngIf="fieldInvalid(endDate)" class="text-danger">
+      <div *ngIf="endDate.errors?.['required']">End Date is required (aaaa-mm-dd).</div>
+      <div *ngIf="startDateValue > endDateValue">End Date should be greater than Start Date.</div>
+    </div>
+  </div>
+
+  <div class="d-grid">
+    <button class="btn btn-lg btn-success" type="submit">Submit</button>
+  </div>
+</form>

@@ -19,6 +19,13 @@ export class VehiclesComponent implements OnInit {
     this.ownerService.refreshList();
     this.vehicleService.refreshList();
   }
+  getOwnerName(ownerId: number | null): string {
+    if (ownerId === null) {
+      return 'Unknown Model';
+    }
+    const vehicle = this.ownerService.list.find(v => v.id === ownerId);
+    return vehicle ? vehicle.name : '';
+  }
 
   populateForm(selectedRecord:Vehicle){
     this.vehicleService.formData = Object.assign({},selectedRecord);

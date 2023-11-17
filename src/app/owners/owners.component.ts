@@ -3,6 +3,7 @@ import { Component, OnInit} from '@angular/core';
 import { VehicleService } from '../shared/services/vehicle.service';
 import { OwnerService } from '../shared/services/owner.service';
 import { Owner } from '../shared/models/owner.model';
+import { Vehicle } from '../shared/models/vehicle.model';
 
 @Component({
   selector: 'app-owners',
@@ -10,6 +11,7 @@ import { Owner } from '../shared/models/owner.model';
 })
 export class OwnersComponent implements OnInit {
 
+  selectedOwnerId: number | null = null;
   constructor(public vehicleService: VehicleService, public ownerService: OwnerService, public maintenanceHistoryService: MaintenanceHistoryService) {
   }
 
@@ -21,6 +23,19 @@ export class OwnersComponent implements OnInit {
 
   populateForm(selectedRecord:Owner){
     this.ownerService.formData = Object.assign({},selectedRecord);
+  }
+
+  listVehiclesByOwner(ownerId: number) {
+    this.selectedOwnerId = ownerId;
+    this.vehicleService.getVehiclesByOwnerId(ownerId)
+      .subscribe({
+        next: (vehicles) => {
+          this.vehicleService.list = vehicles;
+        },
+        error: err => {
+          console.error(err);
+        }
+      });
   }
 
   onDelete(id:number){

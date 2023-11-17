@@ -15,8 +15,21 @@
     <ul *ngIf="!vehicleService.loading && vehicleService.list.length > 0" class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-start mb-2 border px-4 py-3 rounded-3" *ngFor="let vd of vehicleService.list">
         <div class="flex-grow-1 mouse-hover" (click)="populateForm(vd)">
-          <div class="fw-bold">{{vd.make}}</div>
-          <div>{{vd.model}}</div>
+
+          <div class="fw-bold"> {{ vd.model }} </div>
+          <div>
+            <span class="text-muted">Owner: </span>{{ getOwnerName(vd.ownerId) }}
+          </div>
+
+          <div>
+            <span class="text-muted">Make: </span> {{ vd.make }}
+          </div>
+          <div>
+            <span class="text-muted">License Plate: </span> {{ vd.licensePlate}}
+          </div>
+          <div>
+            <span class="text-muted">Color: </span> {{ vd.color}}
+          </div>
         </div>
         <span class="text-secondary">
           <i class="fa-solid fa-trash fa-lg mouse-hover" (click)="onDelete(vd.id)"></i>

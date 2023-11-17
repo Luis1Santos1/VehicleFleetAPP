@@ -1,18 +1,18 @@
-import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
-import { Owner } from '../models/owner.model';
-import { HttpClient } from '@angular/common/http';
-import { Vehicle } from '../models/vehicle.model';
+import { VehicleInsurance } from '../models/vehicle-insurance.model';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OwnerService {
+export class VehicleInsuranceService {
 
-  url:string = environment.apiBaseUrl+'/Owner'
-  list: Owner[] = [];
-  formData: Owner = new Owner()
+  url:string = environment.apiBaseUrl+'/VehicleInsurance'
+
+  list: VehicleInsurance[] = [];
+  formData: VehicleInsurance = new VehicleInsurance()
   formSubmitted:boolean = false;
   loading = false;
   constructor(private http:HttpClient) { }
@@ -24,7 +24,7 @@ export class OwnerService {
     this.http.get(this.url)
     .subscribe({
       next: res => {
-        this.list = res as Owner[]
+        this.list = res as VehicleInsurance[]
         this.loading = false;
       },
       error: err => { console.log(err)
@@ -33,27 +33,21 @@ export class OwnerService {
     })
   }
 
-  getVehiclesByOwnerId(ownerId: number) {
-    const url = `${this.url}/${ownerId}/vehicles`;
-
-    return this.http.get<Owner[]>(url);
-  }
-
-  postOwner(){
+  postVehicleInsurance(){
     return this.http.post(this.url, this.formData)
   }
 
-  putOwner(){
+  putVehicleInsurance(){
     return this.http.put(this.url+'/'+this.formData.id, this.formData);
   }
 
-  deleteOwner(id:number){
+  deleteVehicleInsurance(id:number){
     return this.http.delete(this.url+'/'+ id)
   }
 
   resetForm(form:NgForm){
     form.form.reset()
-    this.formData = new Owner()
+    this.formData = new VehicleInsurance()
     this.formSubmitted = false;
   }
 }

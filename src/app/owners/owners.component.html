@@ -16,13 +16,22 @@
       <li class="list-group-item d-flex justify-content-between align-items-start mb-2 border px-4 py-3 rounded-3"
         *ngFor="let od of ownerService.list">
 
-        <div class="flex-grow-1 mouse-hover"
-        (click)="populateForm(od)">
-
-          <div class="fw-bold">{{od.name}}</div>
-          <div>{{od.phone}}</div>
+        <div class="flex-grow-1 mouse-hover" (click)="populateForm(od)">
+          <div class="fw-bold">{{ od.name}}</div>
+          <div>
+            <span class="text-muted">CPF:</span> {{ od.cpf }}
+          </div>
+          <div>
+            <span class="text-muted">Phone:</span> {{ od.phone}}
+          </div>
+          <div>
+            <span class="text-muted">Address:</span> {{ od.address}}
+          </div>
         </div>
         <span class="text-secondary">
+          <button class="btn btn-link">
+            <i class="fa-solid fa-car fa-lg mouse-hover" (click)="listVehiclesByOwner(od.id)"></i>
+          </button>
           <i class="fa-solid fa-trash fa-lg mouse-hover"
           (click)="onDelete(od.id)"></i>
         </span>
@@ -33,6 +42,42 @@
         <i class="fa-solid fa-exclamation-triangle" style="font-size: 2.5em;"></i>
         <br>
         <span style="margin-left: 10px;" style="font-size: 1.2em;">No owners registered.</span>
+      </h3>
+    </div>
+  </div>
+  <div class="col-12" style="padding-top: 2em;">
+    <h2 class="fw-bold" style="font-size: 2em;">Vehicle List</h2>
+    <div *ngIf="vehicleService.loading" class="text-center mt-3" style="height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <div class="spinner-border" role="status" style="width: 4rem; height: 4rem;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2" style="font-size: 2em; color: black;">Loading vehicles...</p>
+    </div>
+    <table *ngIf="!vehicleService.loading && vehicleService.list.length > 0" class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Make</th>
+          <th scope="col">Model</th>
+          <th scope="col">Year</th>
+          <th scope="col">License Plate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let vehicle of vehicleService.list">
+          <tr *ngIf="vehicle.ownerId == selectedOwnerId">
+            <td>{{ vehicle.make }}</td>
+            <td>{{ vehicle.model }}</td>
+            <td>{{ vehicle.manufacturingYear }}</td>
+            <td>{{ vehicle.licensePlate }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div *ngIf="!vehicleService.loading && vehicleService.list.length === 0" class="text-center mt-3" style="height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <h3 class="alert-info">
+        <i class="fa-solid fa-exclamation-triangle" style="font-size: 2.5em;"></i>
+        <br>
+        <span style="margin-left: 10px;" style="font-size: 1.2em;">No vehicles registered for this owner.</span>
       </h3>
     </div>
   </div>
