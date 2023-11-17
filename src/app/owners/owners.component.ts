@@ -1,3 +1,4 @@
+import { MaintenanceHistoryService } from './../shared/services/maintenance-history.service';
 import { Component, OnInit} from '@angular/core';
 import { VehicleService } from '../shared/services/vehicle.service';
 import { OwnerService } from '../shared/services/owner.service';
@@ -9,11 +10,13 @@ import { Owner } from '../shared/models/owner.model';
 })
 export class OwnersComponent implements OnInit {
 
-  constructor(public vehicleService: VehicleService, public ownerService: OwnerService) {
+  constructor(public vehicleService: VehicleService, public ownerService: OwnerService, public maintenanceHistoryService: MaintenanceHistoryService) {
   }
 
   ngOnInit() {
+    this.maintenanceHistoryService.refreshList();
     this.ownerService.refreshList();
+    this.vehicleService.refreshList();
   }
 
   populateForm(selectedRecord:Owner){
@@ -29,7 +32,7 @@ export class OwnersComponent implements OnInit {
         this.ownerService.refreshList();
       },
       error: err => { console.log(err)
-      alert('Não é possível excluir o proprietário. Ele possui veículos associados.');
+      alert('You cannot delete the owner. They have associated vehicles.');
       }
     })
 

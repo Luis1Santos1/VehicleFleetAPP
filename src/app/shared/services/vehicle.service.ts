@@ -15,17 +15,22 @@ export class VehicleService {
   list: Vehicle[] = [];
   formData: Vehicle = new Vehicle()
   formSubmitted:boolean = false;
+  loading = false;
   constructor(private http:HttpClient) { }
 
   refreshList(){
+    this.loading = true;
     this.list = [];
 
     this.http.get(this.url)
     .subscribe({
       next: res => {
         this.list = res as Vehicle[]
+        this.loading = false;
       },
-      error: err => { console.log(err)}
+      error: err => { console.log(err)
+      this.loading = false;
+      }
     })
   }
 

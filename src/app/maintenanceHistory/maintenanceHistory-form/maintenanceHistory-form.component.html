@@ -1,0 +1,44 @@
+<form #form="ngForm" (submit)="onSubmit(form)" [class.submitted] ="maintenanceHistoryService.formSubmitted" novalidate autocomplete="off">
+  <input type="hidden" name="id" [value]="maintenanceHistoryService.formData.id">
+
+  <div class="mb-3">
+    <label>Vehicle</label>
+    <select class="form-control for-control-lg" #vehicle="ngModel" name="owner" [(ngModel)]="maintenanceHistoryService.formData.vehicleId" required (blur)="checkField(vehicle)" (input)="checkField(vehicle)">
+      <option *ngFor="let vehicle of vehicleService.list" [value]="vehicle.id">{{ vehicle.model + " / " + vehicle.make }}</option>
+    </select>
+    <div *ngIf="fieldInvalid(vehicle)" class="text-danger">
+      <div *ngIf="vehicle.errors?.['required']">Owner is required.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Maintenance Date (aaaa-mm-dd)</label>
+    <input class="form-control for-control-lg" placeholder="Enter the maintenance Date of vehicle" #maintenanceDate="ngModel" name="maintenanceDate" [(ngModel)]="maintenanceHistoryService.formData.maintenanceDate" minlength="10" maxlength="10" required (blur)="checkField(maintenanceDate)" (input)="checkField(maintenanceDate)" >
+    <div *ngIf="fieldInvalid(maintenanceDate)" class="text-danger">
+      <div *ngIf="maintenanceDate.errors?.['required']">Maintenance Date is required.</div>
+      <div *ngIf="maintenanceDate.errors?.['maxlength']">Maintenance Date should have at most 10 characters (dd/mm/aaaa).</div>
+      <div *ngIf="maintenanceDate.errors?.['maxlength']">Maintenance Date should have at least 10 characters (dd/mm/aaaa).</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Service Type</label>
+    <input class="form-control for-control-lg" placeholder="Enter the service type" #serviceType="ngModel" name="serviceType" [(ngModel)]="maintenanceHistoryService.formData.serviceType" maxlength="50" required (blur)="checkField(serviceType)" (input)="checkField(serviceType)">
+    <div *ngIf="fieldInvalid(serviceType)" class="text-danger">
+      <div *ngIf="serviceType.errors?.['required']">Service Type is required.</div>
+      <div *ngIf="serviceType.errors?.['maxlength']">Service Type should have at most 50 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Cost</label>
+    <input class="form-control for-control-lg" placeholder="Enter the manufacturing year" #cost="ngModel" name="cost" [(ngModel)]="maintenanceHistoryService.formData.cost" required (blur)="checkField(cost)" (input)="checkField(cost)">
+    <div *ngIf="fieldInvalid(cost)" class="text-danger">
+      <div *ngIf="cost.errors?.['required']">Cost is required.</div>
+    </div>
+  </div>
+
+  <div class="d-grid">
+    <button class="btn btn-lg btn-success" type="submit">Submit</button>
+  </div>
+</form>

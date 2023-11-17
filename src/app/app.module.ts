@@ -13,6 +13,9 @@ import { MaintenanceHistoryComponent } from './maintenanceHistory/maintenanceHis
 import { VehicleInsuranceComponent } from './vehicleInsurance/vehicleInsurance.component';
 import { VehiclesFormComponent } from './vehicles/vehicles-form/vehicles-form.component';
 import { OwnersFormComponent } from './owners/owners-form/owners-form.component';
+import { OwnerService } from './shared/services/owner.service';
+import { MaintenanceHistoryService } from './shared/services/maintenance-history.service';
+import { MaintenanceHistoryFormComponent } from './maintenanceHistory/maintenanceHistory-form/maintenanceHistory-form.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { OwnersFormComponent } from './owners/owners-form/owners-form.component'
     VehiclesComponent,
     VehiclesFormComponent,
     MaintenanceHistoryComponent,
+    MaintenanceHistoryFormComponent,
     VehicleInsuranceComponent
    ],
   imports: [
@@ -33,7 +37,9 @@ import { OwnersFormComponent } from './owners/owners-form/owners-form.component'
     AppRoutingModule
   ],
   providers: [
-    VehicleService
+    VehicleService,
+    OwnerService,
+    MaintenanceHistoryService
   ],
   bootstrap: [AppComponent]
 })

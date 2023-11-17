@@ -19,11 +19,6 @@ export class VehiclesFormComponent {
     field.control.markAsTouched();
   }
 
-  updateManufacturingYear(value: any) {
-    this.vehicleService.formData.manufacturingYear = +value;
-  }
-
-
   constructor(public vehicleService: VehicleService, public ownerService: OwnerService) {
   }
 

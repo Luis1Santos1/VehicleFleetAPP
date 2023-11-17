@@ -1,7 +1,9 @@
+import { MaintenanceHistory } from 'src/app/shared/models/maintenance-history.model';
 import { Component, OnInit } from '@angular/core';
 import { VehicleService } from '../shared/services/vehicle.service';
 import { OwnerService } from '../shared/services/owner.service';
 import { Vehicle } from '../shared/models/vehicle.model';
+import { MaintenanceHistoryService } from '../shared/services/maintenance-history.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -9,10 +11,12 @@ import { Vehicle } from '../shared/models/vehicle.model';
 })
 export class VehiclesComponent implements OnInit {
 
-  constructor(public vehicleService: VehicleService, public ownerService: OwnerService) {
+  constructor(public vehicleService: VehicleService, public ownerService: OwnerService, public maintenanceHistoryService: MaintenanceHistoryService) {
   }
 
   ngOnInit() {
+    this.maintenanceHistoryService.refreshList();
+    this.ownerService.refreshList();
     this.vehicleService.refreshList();
   }
 

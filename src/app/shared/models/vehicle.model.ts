@@ -2,7 +2,7 @@ export class Vehicle {
   id: number = 0
   make: string = ""
   model: string = ""
-  manufacturingYear: number = 0
+  manufacturingYear: number | null = null;
   licensePlate: string = ""
   color: string = ""
   insuranceId: number = 0

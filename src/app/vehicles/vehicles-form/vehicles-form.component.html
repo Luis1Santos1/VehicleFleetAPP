@@ -31,8 +31,7 @@
     <input class="form-control for-control-lg" placeholder="Enter the license plate" #licensePlate="ngModel" name="licensePlate" [(ngModel)]="vehicleService.formData.licensePlate" maxlength="10" required (blur)="checkField(licensePlate)" (input)="checkField(licensePlate)">
     <div *ngIf="fieldInvalid(licensePlate)" class="text-danger">
       <div *ngIf="licensePlate.errors?.['required']">License Plate is required.</div>
-      <div *ngIf="manufacturingYear.value !== null && (manufacturingYear.value < 1900 || manufacturingYear.value > 2100)">O ano de fabricação deve estar entre 1900 e 2100.</div>
-  </div>
+    </div>
   </div>
 
   <div class="mb-3">
